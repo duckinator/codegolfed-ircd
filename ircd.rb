@@ -8,7 +8,7 @@ def send(clients, client, text)
   client.puts text
 rescue IOError => e
   warn "ERROR: #{client} send(): #{e.class}: #{e.message}"
-  clients.delete(client)
+  cmd_quit(clients, client, handle, e.message)
 end
 
 def send_all(clients, client, handle, message, send_back=false)
@@ -24,6 +24,11 @@ def send_all(clients, client, handle, message, send_back=false)
   recipients.each do |(r_client, r_handle)|
     send(clients, r_client, text)
   end
+end
+
+def cmd_quit(clients, c, handle, text)
+  send_all(clients, client, handle, "QUIT :#{text}")
+  clients.delete(client)
 end
 
 # TODO: Track per-channel.
@@ -77,7 +82,7 @@ begin
           quitting = true
           quit_msg = $1.strip
 
-          send_all(clients, c, handle, l, true)
+          cmd_quit(clients, c, handle, l)
         else
           send_all(clients, c, (temporary_handle || handle), l, l !~ /^PRIVMSG /)
         end
