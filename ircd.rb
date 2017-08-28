@@ -17,6 +17,6 @@ next if !n||l=~/^PI/
 cx=d.dup
 cx=cx.reject{|z|z==c} if l=~/^PR|^NO/
 cx.each{|(y,_)|s(y,":#{m||n}!r@h #{l}")}
-c.close if l=~/^Q/
+l[0]==?Q&&c.close
 }}
 loop{sleep 1}
