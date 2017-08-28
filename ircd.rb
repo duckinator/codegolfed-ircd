@@ -91,5 +91,6 @@ end
     }
 
     c.close
+    clients.delete(c)
   } # Thread.new {}
 } # loop {}
