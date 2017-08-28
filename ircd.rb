@@ -4,7 +4,7 @@ x=TCPServer.new('0.0.0.0',6667)
 d={}
 loop{Thread.start(x.accept){|c|d[c]=n=nil
 c.each_line{|l|m=nil
-if l=~/^NICK (.*)\r/
+if l=~/^N.+ (.*)\r/
 m=n
 t=$1
 next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
