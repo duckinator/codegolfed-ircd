@@ -28,7 +28,7 @@ end
 
 def cmd_quit(clients, c, handle, text)
   send_all(clients, client, handle, "QUIT :#{text}")
-  clients.delete(client)
+  clients.delete(client) rescue nil
 end
 
 # TODO: Track per-channel.
