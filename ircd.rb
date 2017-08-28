@@ -83,7 +83,7 @@ begin
           cmd_join(clients, c, handle, $1)
         when /^QUIT/
           quitting = true
-          quit_msg = l.split(' ').last
+          quit_msg = l.split(':', 2).last
           quit_msg = quit_msg[1..-1] if quit_msg[0] == ':'
         else
           send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
