@@ -26,11 +26,6 @@ def send_all(clients, client, handle, message, send_back=false)
   end
 end
 
-def cmd_quit(clients, c, handle, text)
-  send_all(clients, client, handle, "QUIT :#{text}")
-  clients.delete(client) rescue nil
-end
-
 # TODO: Track per-channel.
 def cmd_names(clients, c, handle, channel)
   send(clients, c, ":s 353 #{handle} @ #{channel} :#{clients.values.join(' ')}")
@@ -82,7 +77,7 @@ begin
           quitting = true
           quit_msg = $1.strip
 
-          cmd_quit(clients, c, handle, l)
+          send_all(clients, c, handle, l, true)
         else
           send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
         end
