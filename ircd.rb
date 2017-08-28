@@ -12,14 +12,14 @@ rescue IOError => e
   clients.delete(c)
 end
 
-def send_all(clients, client, handle, message, send_back=false)
+def send_all(clients, c, handle, message, send_back=false)
   text = ":#{handle}!u@h #{message}"
-  puts "#{client} [SEND] #{text}"
+  puts "#{c} [SEND] #{text}"
 
   recipients = clients.keys
 
   unless send_back
-    recipients -= [client]
+    recipients -= [c]
   end
 
   recipients.each do |(r_client, r_handle)|
@@ -28,7 +28,7 @@ def send_all(clients, client, handle, message, send_back=false)
 end
 
 def cmd_quit(clients, c, handle, text)
-  send_all(clients, client, handle, "QUIT :#{text}")
+  send_all(clients, c, handle, "QUIT :#{text}")
   clients.delete(c)
 end
 
