@@ -4,6 +4,7 @@ mutex = Mutex.new
 clients = {}
 
 def send(clients, c, text)
+  p clients
   puts "#{c} [SEND] #{text}"
   c.puts text
 rescue IOError => e
