@@ -52,6 +52,8 @@ loop {
       mutex.synchronize {
         old_handle = nil
 
+        next if l.empty?
+
         puts "#{c.inspect} [RECV] #{handle.inspect}: #{l.inspect}"
 begin
         case l
