@@ -84,7 +84,7 @@ begin
 
           cmd_quit(clients, c, handle, l)
         else
-          send_all(clients, c, (temporary_handle || handle), l, l !~ /^PRIVMSG /)
+          send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
         end
 rescue => e
   puts "#{e.class}: #{e.message}"
