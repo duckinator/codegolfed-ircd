@@ -2,7 +2,7 @@ require'socket'
 def s(x,l)x.puts l end
 x=TCPServer.new('0.0.0.0',6667)
 d={}
-loop{Thread.start(x.accept){|c|d[c]=n=nil
+loop{Thread.new(x.accept){|c|d[c]=n=nil
 c.each_line{|l|m=nil
 if l=~/^N.+ (.*)\r/
 m=n
