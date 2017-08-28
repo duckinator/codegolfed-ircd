@@ -85,14 +85,15 @@ begin
         end
 rescue => e
   puts "#{e.class}: #{e.message}"
-  raise
+  quitting = true
+  quit_msg ||= e.message
 end
       }
 
       break if quitting
     }
 
-    cmd_quit(clients, c, clients[c], text)
+    cmd_quit(clients, c, clients[c], quit_msg)
     c.close rescue nil
   } # Thread.new {}
 } # loop {}
