@@ -12,5 +12,5 @@ d[c]=n=t
 m||s(c,":s 001 #{n} :")end
 n&&l=~/^PI/&&next
 e=d.reject{|(z,_)|z==c&&l=~/^PR|^NO/}
-e.each{|b|s(b[0],":#{m||n}!u@h #{l}")}
+e.each{|b|s b[0],":#{m||n}!u@h "+l}
 l[0]==?Q&&c.close}}}
