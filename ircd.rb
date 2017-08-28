@@ -48,6 +48,7 @@ loop {
     clients[c] = nil
     handle = nil
     quitting = false
+    quit_msg = nil
     c.each_line { |l|
       mutex.synchronize {
         old_handle = nil
