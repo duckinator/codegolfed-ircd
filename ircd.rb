@@ -8,6 +8,7 @@ def send(clients, client, text)
   client.puts text
 rescue IOError => e
   warn "ERROR: #{client} send(): #{e.class}: #{e.message}"
+  cmd_quit(clients, c, handle, text)
   clients.delete(client)
 end
 
@@ -26,6 +27,11 @@ def send_all(clients, client, handle, message, send_back=false)
   end
 end
 
+def cmd_quit(clients, c, handle, text)
+  send_all(clients, client, handle, "QUIT :#{text}")
+  clients.delete(c)
+end
+
 # TODO: Track per-channel.
 def cmd_names(clients, c, handle, channel)
   send(clients, c, ":s 353 #{handle} @ #{channel} :#{clients.values.join(' ')}")
@@ -41,10 +47,9 @@ loop {
   Thread.new(server.accept) { |c|
     clients[c] = nil
     handle = nil
+    quitting = false
     c.each_line { |l|
       mutex.synchronize {
-        quitting = false
-        quit_msg = nil
         old_handle = nil
 
         puts "#{c.inspect} [RECV] #{handle.inspect}: #{l.inspect}"
@@ -77,7 +82,7 @@ begin
           quitting = true
           quit_msg = $1.strip
 
-          send_all(clients, c, handle, l, true)
+          cmd_quit(clients, c, handle, quit_msg)
         else
           send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
         end
