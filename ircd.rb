@@ -9,8 +9,7 @@ m=n
 t=$1
 next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
 d[c]=n=t
-m||s(c,":s 001 #{n} :")
-end
+m||s(c,":s 001 #{n} :")end
 n&&l=~/^PI/&&next
 e=d.reject{|(z,_)|z==c&&l=~/^PR|^NO/}
 e.each{|(y,_)|s(y,":#{m||n}!r@h #{l}")}
