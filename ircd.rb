@@ -3,12 +3,12 @@ server = TCPServer.new'0.0.0.0',6667
 mutex = Mutex.new
 clients = {}
 
-def send(clients, client, text)
-  puts "#{client} [SEND] #{text}"
-  client.puts text
+def send(clients, c, text)
+  puts "#{c} [SEND] #{text}"
+  c.puts text
 rescue IOError => e
   warn "ERROR: #{client} send(): #{e.class}: #{e.message}"
-  cmd_quit(clients, client, handle, text)
+  cmd_quit(clients, c, clients[c], text)
   clients.delete(client)
 end
 
