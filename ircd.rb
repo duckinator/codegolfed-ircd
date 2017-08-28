@@ -7,7 +7,7 @@ c.each_line{|l|m=nil
 if l=~/^N.+ (.*)\r/
 m=n
 t=$1
-next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
+next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|b|b[1]==t}
 d[c]=n=t
 m||s(c,":s 001 #{n} :")end
 n&&l=~/^PI/&&next
