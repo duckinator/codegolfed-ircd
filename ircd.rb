@@ -8,7 +8,6 @@ def send(clients, c, text)
   c.puts text
 rescue IOError => e
   warn "ERROR: #{c} send(): #{e.class}: #{e.message}"
-  cmd_quit(clients, c, clients[c], text)
   clients.delete(c)
 end
 
@@ -81,8 +80,6 @@ begin
         when /^QUIT :(.*)/
           quitting = true
           quit_msg = $1.strip
-
-          cmd_quit(clients, c, handle, quit_msg)
         else
           send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
         end
@@ -95,6 +92,7 @@ end
       break if quitting
     }
 
+    cmd_quit(clients, c, clients[c], text)
     c.close rescue nil
   } # Thread.new {}
 } # loop {}
