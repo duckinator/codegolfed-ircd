@@ -9,9 +9,9 @@ c.each_line{|l|
 m=nil
 if l=~/^NI/
 m=n
-tn=l.split(' ').last
-next s(c,":s 433 #{n||'*'} #{tn} :") if d.any?{|(_,b)|b==tn}
-d[c]=n=tn
+t=l.split(' ').last
+next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
+d[c]=n=t
 m||s(c,":s 001 #{n} :x")
 end
 next if !n
