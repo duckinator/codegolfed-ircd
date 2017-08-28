@@ -9,7 +9,7 @@ def send(clients, c, text)
 rescue IOError => e
   warn "ERROR: #{client} send(): #{e.class}: #{e.message}"
   cmd_quit(clients, c, clients[c], text)
-  clients.delete(client)
+  clients.delete(c)
 end
 
 def send_all(clients, client, handle, message, send_back=false)
