@@ -6,9 +6,9 @@ x.each_request(!!1){|c|
 d[c]=n=nil
 c.each_line{|l|
 m=nil
-if l=~/^NI/
+if l=~/^NICK (.*)\r/
 m=n
-t=l.split(' ').last
+t=$1
 next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
 d[c]=n=t
 m||s(c,":s 001 #{n} :x")
