@@ -13,8 +13,7 @@ next s(c,":s 433 #{n||'*'} #{t} :") if d.any?{|(_,b)|b==t}
 d[c]=n=t
 m||s(c,":s 001 #{n} :x")
 end
-next if !n
-next if l=~/^PI/
+next if !n||l=~/^PI/
 cx=d.dup
 cx=cx.reject{|z|z==c} if l=~/^PR|^NO/
 cx.each{|(y,_)|s(y,":#{m||n}!r@h #{l}")}
