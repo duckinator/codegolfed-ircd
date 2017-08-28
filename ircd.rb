@@ -95,6 +95,6 @@ end
       break if quitting
     }
 
-    c.close
+    c.close rescue nil
   } # Thread.new {}
 } # loop {}
