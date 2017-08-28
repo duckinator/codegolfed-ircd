@@ -77,14 +77,15 @@ begin
           cmd_names(clients, c, handle, $1)
         when /^JOIN ([^\s]*)/
           cmd_join(clients, c, handle, $1)
-        when /^QUIT :(.*)/
+        when /^QUIT/
           quitting = true
-          quit_msg = $1.strip
+          quit_msg = l.split(' ').last
+          quit_msg = quit_msg[1..-1] if quit_msg[0] == ':'
         else
           send_all(clients, c, handle, l, l !~ /^PRIVMSG /)
         end
 rescue => e
-  puts "#{e.class}: #{e.message}"
+  puts "each_line: #{e.class}: #{e.message}"
   quitting = true
   quit_msg ||= e.message
 end
