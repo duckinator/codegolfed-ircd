@@ -34,7 +34,7 @@ end
 
 # TODO: Track per-channel.
 def cmd_names(clients, c, handle, channel)
-  send(clients, c, ":s 353 #{handle} @ #{channel} :#{clients.values.join(' ')}")
+  send(clients, c, ":s 353 #{handle} @ #{channel} :#{clients.values.reject(&:nil?).join(' ')}")
   send(clients, c, ":s 366 #{handle} #{channel} :End of /NAMES list.")
 end
 
@@ -96,6 +96,5 @@ end
     }
 
     c.close
-    clients.delete(c)
   } # Thread.new {}
 } # loop {}
