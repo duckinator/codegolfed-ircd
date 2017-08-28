@@ -2,9 +2,8 @@ require'net/socket'
 def s(x,l)x.puts l end
 x=Net::Socket::TCP::Server.new('0.0.0.0',6667)
 d={}
-x.each_request(!!1) {|c|
-n=nil
-d[c] = nil
+x.each_request(!!1){|c|
+d[c]=n=nil
 c.each_line{|l|
 m=nil
 if l=~/^NI/
