@@ -10,7 +10,7 @@ on=nil
 if l=~/^NICK/
 on=n
 tn=l.split(' ').last
-next s(c,":s 433 #{n||'*'} #{tn} :") if cs.values.include?(tn)
+next s(c,":s 433 #{n||'*'} #{tn} :") if cs.any?{|(_,b)|b==tn}
 cs[c]=n=tn
 s(c,":s 001 #{n} :x") if on.nil?
 end
