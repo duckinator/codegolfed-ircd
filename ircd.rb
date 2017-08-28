@@ -52,7 +52,7 @@ loop {
       mutex.synchronize {
         old_handle = nil
 
-        next if l.empty?
+        next if l.strip.empty?
 
         puts "#{c.inspect} [RECV] #{handle.inspect}: #{l.inspect}"
 begin
