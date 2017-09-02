@@ -37,7 +37,7 @@ class Ircd
       recipients -= [c]
     end
 
-    recipients.each do |(r_client, r_handle)|
+    recipients.each do |(r_client, _)|
       send(r_client, text)
     end
   end
@@ -111,7 +111,6 @@ class Ircd
                 temporary_handle = $1.strip
 
                 if @clients.values.include?(temporary_handle)
-                  failed_handle = temporary_handle
                   send(c, ":s 433 #{handle||?*} #{temporary_handle} :Nickname is already in use.")
                   next
                 end
