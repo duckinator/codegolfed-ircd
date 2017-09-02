@@ -1,5 +1,5 @@
 [server]
-address= "irc.smallest.dog"
+address = "irc.smallest.dog"
 
 [ircd.listen]
 ipv4 = "0.0.0.0"
