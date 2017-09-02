@@ -1,0 +1,6 @@
+[server]
+address= "irc.smallest.dog"
+
+[ircd]
+ipv4 = "0.0.0.0"
+unencrypted_port = "6667"
