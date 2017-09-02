@@ -162,5 +162,5 @@ class Ircd
   end
 end
 
-ircd = Ircd.new(TOML::Parser.new('config.toml').parsed)
+ircd = Ircd.new(TOML::Parser.new(open('config.toml').read).parsed)
 ircd.despair
