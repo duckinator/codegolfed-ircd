@@ -1,4 +1,5 @@
 require 'socket'
+require 'toml'
 
 class Ircd
   # Ping timeouts.
@@ -6,8 +7,9 @@ class Ircd
   TIMEOUT_CHECK_INTERVAL = TIMEOUT * 4
 
 
-  def initialize
-    @server = TCPServer.new('0.0.0.0', 6667)
+  def initialize(config)
+    @server_address = config['server']['address']
+    @server = TCPServer.new(config['ircd']['listen']['ipv4'], config['ircd']['listen']['unencrypted_port'])
     @mutex = Mutex.new
 
     @last_sent_times = {}
@@ -123,6 +125,7 @@ class Ircd
                 if still_connecting
                   still_connecting = false
                   send(c, ":s 001 #{handle} :Welcome!")
+                  send(c, ":s 002 #{handle} :Your host is #{@server_addres}, running some piece of shit IRCd")
                 end
 
                 cmd_join(c, handle, "#lobby") if old_handle.nil?
@@ -159,5 +162,5 @@ class Ircd
   end
 end
 
-ircd = Ircd.new
+ircd = Ircd.new(TOML::Parser.new('config.toml').parsed)
 ircd.despair
